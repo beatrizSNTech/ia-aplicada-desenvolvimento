@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Desk Acadêmico</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Portal interno</p>
+      <h1>Service Desk</h1>
+    </div>
+    <nav class="tabs" aria-label="Navegação principal">
+      <button class="tab is-active" data-view="userView">Abrir chamado</button>
+      <button class="tab" data-view="analystView">Painel do analista</button>
+      <button class="tab" data-view="historyView">Histórico</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="userView" class="view is-active" aria-labelledby="openTicketTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Usuário</p>
+          <h2 id="openTicketTitle">Abrir chamado</h2>
+        </div>
+        <p>Registre incidentes, solicitações e dúvidas para a equipe de suporte.</p>
+      </div>
+
+      <form id="ticketForm" class="form-panel">
+        <div class="field-grid">
+          <label>
+            Nome do solicitante
+            <input id="requester" type="text" placeholder="Ex.: Ana Souza" required>
+          </label>
+          <label>
+            E-mail
+            <input id="email" type="email" placeholder="ana@empresa.com" required>
+          </label>
+          <label>
+            Categoria
+            <select id="category" required>
+              <option value="">Selecione</option>
+              <option>Hardware</option>
+              <option>Software</option>
+              <option>Rede</option>
+              <option>Acesso</option>
+              <option>Outro</option>
+            </select>
+          </label>
+          <label>
+            Prioridade inicial
+            <select id="priority" required>
+              <option>Baixa</option>
+              <option>Média</option>
+              <option>Alta</option>
+              <option>Crítica</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          Título do chamado
+          <input id="title" type="text" placeholder="Ex.: Não consigo acessar o sistema financeiro" required>
+        </label>
+
+        <label>
+          Descrição
+          <textarea id="description" rows="6" placeholder="Descreva o problema, quando começou e o impacto para o trabalho." required></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button class="primary" type="submit">Enviar chamado</button>
+          <button type="reset">Limpar</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="analystView" class="view" aria-labelledby="analystTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Suporte</p>
+          <h2 id="analystTitle">Painel do analista</h2>
+        </div>
+        <label class="search-box">
+          Buscar chamado
+          <input id="searchInput" type="search" placeholder="Digite ID, título ou solicitante">
+        </label>
+      </div>
+
+      <div class="support-layout">
+        <aside class="ticket-list" aria-label="Lista de chamados">
+          <div class="list-header">
+            <strong>Fila de atendimento</strong>
+            <span id="ticketCounter">0 chamados</span>
+          </div>
+          <div id="ticketList"></div>
+        </aside>
+
+        <section id="ticketDetails" class="details-panel" aria-live="polite">
+          <div class="empty-state">
+            <h3>Selecione um chamado</h3>
+            <p>Ao escolher um item da fila, os campos de status, prioridade e correção aparecem aqui.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="historyView" class="view" aria-labelledby="historyTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Auditoria</p>
+          <h2 id="historyTitle">Histórico dos chamados</h2>
+        </div>
+        <button id="clearData">Limpar base local</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Título</th>
+              <th>Solicitante</th>
+              <th>Status</th>
+              <th>Prioridade</th>
+              <th>Atualizado em</th>
+            </tr>
+          </thead>
+          <tbody id="historyTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
